@@ -1,16 +1,23 @@
-module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+const azure = require('azure-storage');
 
-    if (req.query.name || (req.body && req.body.name)) {
+module.exports = async function (context, req) {
+
+    const states = ['open', 'closed']; 
+
+    if ( req.query.state && states.includes(req.query.state)) {
         context.res = {
             // status: 200, /* Defaults to 200 */
-            body: "Hello " + (req.query.name || req.body.name)
+            body: (req.query.state || req.body.state) + " the curtains"
         };
+
+        context.bindings.myOutputBlob = req.query.state;
     }
     else {
         context.res = {
             status: 400,
-            body: "Please pass a name on the query string or in the request body"
+            body: "Please pass a valid state"
         };
+        return;
     }
+    context.done();
 };

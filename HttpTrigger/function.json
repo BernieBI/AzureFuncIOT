@@ -14,6 +14,14 @@
       "type": "http",
       "direction": "out",
       "name": "res"
+    },
+
+    {
+      "name": "myOutputBlob",
+      "type": "blob",
+      "path": "statecontainer/curtainState.txt",
+      "connection": "matsiotstorage_STORAGE",
+      "direction": "out"
     }
   ]
 }
